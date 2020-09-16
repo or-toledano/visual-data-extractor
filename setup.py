@@ -32,15 +32,16 @@ from setuptools import find_packages, setup, Command
 
 # Package meta-data.
 NAME = 'cvrecon'
-DESCRIPTION = 'Computer Vision for Reconnaissance applications'
-URL = 'https://github.com/or-toledano/cvrecon'
+DESCRIPTION = 'Computer Vision for Data Extraction'
+URL = 'https://github.com/or-toledano/visual-data-extractor'
 EMAIL = 'ortoledano@protonmail.com'
 AUTHOR = 'Or Toledano'
 REQUIRES_PYTHON = '>=3.8.0'
 VERSION = '0.1.0'
 
 REQUIRED = [
-    'opencv-python'
+    'opencv-python',
+    'numpy'
 ]
 
 EXTRAS = {
