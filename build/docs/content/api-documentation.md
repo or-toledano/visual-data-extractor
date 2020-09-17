@@ -23,20 +23,20 @@ wait_space(image, title="Output") -> None
 
 show image until space press
 
-<a name="visualdata"></a>
-# visualdata
+<a name="visualextract"></a>
+# visualextract
 
 cvrecon module - Computer Vision for Reconnaissance applications
 
-<a name="visualdata.ocr"></a>
-# visualdata.ocr
+<a name="visualextract.ocr"></a>
+# visualextract.ocr
 
 ocr module - extract text from images
 
-<a name="visualdata.ocr.extract_text"></a>
-# visualdata.ocr.extract\_text
+<a name="visualextract.ocr.extract_text"></a>
+# visualextract.ocr.extract\_text
 
-<a name="visualdata.ocr.extract_text.from_roi"></a>
+<a name="visualextract.ocr.extract_text.from_roi"></a>
 #### from\_roi
 
 ```python
@@ -51,22 +51,22 @@ from_roi(roi)
 
 
 
-<a name="visualdata.write_data"></a>
-# visualdata.write\_data
+<a name="visualextract.write_data"></a>
+# visualextract.write\_data
 
 write_data module - format and write extracted data
 
-<a name="visualdata.roi"></a>
-# visualdata.roi
+<a name="visualextract.roi"></a>
+# visualextract.roi
 
 roi module - detect relevant quads and preprocess them before ocr
 
-<a name="visualdata.roi.rectification"></a>
-# visualdata.roi.rectification
+<a name="visualextract.roi.rectification"></a>
+# visualextract.roi.rectification
 
 rectification.py: warp perspective of quads to rectangles
 
-<a name="visualdata.roi.rectification.swap_y"></a>
+<a name="visualextract.roi.rectification.swap_y"></a>
 #### swap\_y
 
 ```python
@@ -82,7 +82,7 @@ swap_y(p0, p1) -> list
 
 [minarg_{p0, p1}(p.y), maxarg_{p0, p1}(p.y)]
 
-<a name="visualdata.roi.rectification.rectified_roi"></a>
+<a name="visualextract.roi.rectification.rectified_roi"></a>
 #### rectified\_roi
 
 ```python
@@ -98,12 +98,12 @@ rectified_roi(image: np.ndarray, quad: np.ndarray) -> np.ndarray
 
 a cropped ROI for the rectified quad
 
-<a name="visualdata.roi.quad_detection"></a>
-# visualdata.roi.quad\_detection
+<a name="visualextract.roi.quad_detection"></a>
+# visualextract.roi.quad\_detection
 
 quad_detection.py: detect quads
 
-<a name="visualdata.roi.quad_detection.resize"></a>
+<a name="visualextract.roi.quad_detection.resize"></a>
 #### resize
 
 ```python
@@ -120,7 +120,7 @@ resize(image, width, inter=cv.INTER_AREA) -> Tuple[ndarray, float]
 
 (resized image, input/output ratio)
 
-<a name="visualdata.roi.quad_detection.get_quads_approx_poly"></a>
+<a name="visualextract.roi.quad_detection.get_quads_approx_poly"></a>
 #### get\_quads\_approx\_poly
 
 ```python
@@ -142,7 +142,7 @@ will be considered "good" for further processing
 
 quads
 
-<a name="visualdata.roi.quad_detection.get_quads_hough_lines"></a>
+<a name="visualextract.roi.quad_detection.get_quads_hough_lines"></a>
 #### get\_quads\_hough\_lines
 
 ```python
@@ -155,10 +155,10 @@ More robust than approxPolyDP
 
 
 
-<a name="visualdata.extract"></a>
-# visualdata.extract
+<a name="visualextract.extract"></a>
+# visualextract.extract
 
-<a name="visualdata.extract.extract_data"></a>
+<a name="visualextract.extract.extract_data"></a>
 #### extract\_data
 
 ```python
@@ -172,19 +172,4 @@ extract_data(image_path)
 **Returns**:
 
 data
-
-<a name="visualdata.extract.extract_data"></a>
-#### extract\_data
-
-```python
-extract_data(image)
-```
-
-**Arguments**:
-
-- `image`: 
-
-**Returns**:
-
-
 

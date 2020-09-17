@@ -6,6 +6,7 @@ import cv2 as cv
 import numpy as np
 from numpy import ndarray
 from typing import List, Tuple
+from better_imshow import wait_space
 import sys
 
 
@@ -39,6 +40,9 @@ def get_quads_approx_poly(gray, resize_width=250, area_thresh=999,
     blur = cv.GaussianBlur(resized, (5, 5), 0)
     ret, thresh = cv.threshold(blur, 0, 255,
                                cv.THRESH_OTSU + cv.THRESH_BINARY)
+    # kernel = np.ones((5, 5), np.uint8)
+    # thresh = cv.morphologyEx(thresh, cv.MORPH_OPEN, kernel)
+    wait_space(thresh)
     contours, hierarchy = cv.findContours(thresh, cv.RETR_EXTERNAL,
                                           cv.CHAIN_APPROX_SIMPLE)
     quads = []
