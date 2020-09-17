@@ -1,4 +1,6 @@
 """
+SPDX-License-Identifier: GPLv3-or-later
+Copyright © 2020 Or Toledano
 quad_detection.py: detect quads
 """
 
@@ -6,7 +8,7 @@ import cv2 as cv
 import numpy as np
 from numpy import ndarray
 from typing import List, Tuple
-from better_imshow import wait_space
+from ..context import wait_space
 import sys
 
 
@@ -42,7 +44,7 @@ def get_quads_approx_poly(gray, resize_width=250, area_thresh=999,
                                cv.THRESH_OTSU + cv.THRESH_BINARY)
     # kernel = np.ones((5, 5), np.uint8)
     # thresh = cv.morphologyEx(thresh, cv.MORPH_OPEN, kernel)
-    wait_space(thresh)
+    # wait_space(thresh)
     contours, hierarchy = cv.findContours(thresh, cv.RETR_EXTERNAL,
                                           cv.CHAIN_APPROX_SIMPLE)
     quads = []

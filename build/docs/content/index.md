@@ -11,9 +11,23 @@ the contour tree structure in a JSON).
 ## Installation
 ```
 git clone https://github.com/or-toledano/visual-data-extractor.git
-pip install
-
+pip install visual-data-extractor/
+```
+Dependencies: tesseract, tesseract-ocr-eng
+ 
+## Usage
+```
+python -m visualextract <path to image>
+```
+Or:
+```
+from visualextract.extract import extract_data
+data = extract_data("/path/to/image/")
+for text in data:
+    print(text)
 ```
 ---------------
-Made mainly to learn about OpenCV image processing capabilities, EAST should
-perform better for the ROI functionality
+Made mainly to learn about OpenCV image processing capabilities, EAST should \
+perform better for the ROI functionality for the real world. \
+SPDX-License-Identifier: GPLv3-or-later \
+Copyright © 2020 Or Toledano 

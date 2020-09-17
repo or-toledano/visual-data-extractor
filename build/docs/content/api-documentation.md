@@ -7,7 +7,10 @@
 <a name="better_imshow"></a>
 # better\_imshow
 
-<a name="better_imshow.wait_space"></a>
+<a name="better_imshow.better_imshow"></a>
+# better\_imshow.better\_imshow
+
+<a name="better_imshow.better_imshow.wait_space"></a>
 #### wait\_space
 
 ```python
@@ -36,6 +39,10 @@ ocr module - extract text from images
 <a name="visualextract.ocr.extract_text"></a>
 # visualextract.ocr.extract\_text
 
+SPDX-License-Identifier: GPLv3-or-later
+Copyright © 2020 Or Toledano
+extract_text.py: extract text from preprocessed images
+
 <a name="visualextract.ocr.extract_text.from_roi"></a>
 #### from\_roi
 
@@ -51,6 +58,9 @@ from_roi(roi)
 
 
 
+<a name="visualextract.__main__"></a>
+# visualextract.\_\_main\_\_
+
 <a name="visualextract.write_data"></a>
 # visualextract.write\_data
 
@@ -64,6 +74,8 @@ roi module - detect relevant quads and preprocess them before ocr
 <a name="visualextract.roi.rectification"></a>
 # visualextract.roi.rectification
 
+SPDX-License-Identifier: GPLv3-or-later
+Copyright © 2020 Or Toledano
 rectification.py: warp perspective of quads to rectangles
 
 <a name="visualextract.roi.rectification.swap_y"></a>
@@ -101,6 +113,8 @@ a cropped ROI for the rectified quad
 <a name="visualextract.roi.quad_detection"></a>
 # visualextract.roi.quad\_detection
 
+SPDX-License-Identifier: GPLv3-or-later
+Copyright © 2020 Or Toledano
 quad_detection.py: detect quads
 
 <a name="visualextract.roi.quad_detection.resize"></a>
@@ -155,8 +169,15 @@ More robust than approxPolyDP
 
 
 
+<a name="visualextract.context"></a>
+# visualextract.context
+
 <a name="visualextract.extract"></a>
 # visualextract.extract
+
+SPDX-License-Identifier: GPLv3-or-later
+Copyright © 2020 Or Toledano
+extract.py: user frontend for the module
 
 <a name="visualextract.extract.extract_data"></a>
 #### extract\_data

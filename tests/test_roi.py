@@ -1,5 +1,10 @@
+"""
+SPDX-License-Identifier: GPLv3-or-later
+Copyright © 2020 Or Toledano
+test_roi.py: test file for ROI
+"""
 import unittest
-from better_imshow import wait_space
+from .context import wait_space
 from visualextract.roi.quad_detection import get_quads_approx_poly
 from visualextract.roi.rectification import rectified_roi
 from visualextract.ocr.extract_text import from_roi

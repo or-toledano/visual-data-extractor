@@ -1,4 +1,6 @@
 """
+SPDX-License-Identifier: GPLv3-or-later
+Copyright © 2020 Or Toledano
 rectification.py: warp perspective of quads to rectangles
 """
 import cv2 as cv

@@ -1,3 +1,9 @@
+"""
+SPDX-License-Identifier: GPLv3-or-later
+Copyright © 2020 Or Toledano
+extract.py: user frontend for the module
+"""
+
 from visualextract.roi.quad_detection import get_quads_approx_poly
 from visualextract.roi.rectification import rectified_roi
 from visualextract.ocr.extract_text import from_roi
