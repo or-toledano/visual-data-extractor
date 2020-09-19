@@ -4,13 +4,14 @@ Copyright © 2020 Or Toledano
 test_roi.py: test file for ROI
 """
 import unittest
-from .context import wait_space
-from visualextract.roi.quad_detection import get_quads_approx_poly
-from visualextract.roi.rectification import rectified_roi, rectified_roi_bad, \
-    centroid
-from visualextract.ocr.extract_text import from_roi
+
 import cv2 as cv
-import numpy as np
+
+from visualextract.ocr.extract_text import from_roi
+from visualextract.roi.quad_detection import get_quads_approx_poly
+from visualextract.roi.rectification import rectified_roi_bad, \
+    centroid
+from .context import wait_space
 
 
 def rec_similarity(contour) -> float:
@@ -43,16 +44,13 @@ class TestROI(unittest.TestCase):
                 c = centroid(quad)
                 cv.rectangle(image, (c[0], c[1] - h), (c[0] + w, c[1] + h),
                              (255, 255, 255), -1)
-                cv.putText(image, "OCR: "+txt,
+                cv.putText(image, "OCR: " + txt,
                            c,
                            cv.FONT_HERSHEY_SIMPLEX,
                            2,
                            0,
                            5)
                 wait_space(image)
-
-        # self.assertTrue(int(input("Enter satisfaction from [0,1]")),
-        #                 "Not satisfied") # Annoying a bit
 
 
 if __name__ == '__main__':
