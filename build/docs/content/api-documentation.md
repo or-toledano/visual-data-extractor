@@ -1,9 +1,3 @@
-<a name="__init__"></a>
-# \_\_init\_\_
-
-<a name="__main__"></a>
-# \_\_main\_\_
-
 <a name="better_imshow"></a>
 # better\_imshow
 
