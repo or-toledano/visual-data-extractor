@@ -1,15 +1,17 @@
 # visual-data-extractor - Computer Vision for Data Extraction
 ## [Read the docs here](build/docs/content/api-documentation.md)
 ## Phone screens/documents (rectangles) data extraction
+![demo](resources/demo.gif)
+
 My attempt on ROI for rectangular text boxes, "deterministically" (no ML).\
 This was made primarily for learning OpenCV purposes;
 Use some DL model like OpenCV's EAST for a fast and robust method in real life.\
 ## The pipeline
 Detect quads (blur, threshold), warp the perspective, \
 OCR preprocess (threshold), run OCR, output.
-## TODO: 
-serialize output, save the contour tree structure in a JSON 
-(switch to RETR_TREE from RETR_EXTERNAL)), implement HoughLines method for quad 
+## TODO:
+serialize output, save the contour tree structure in a JSON
+(switch to RETR_TREE from RETR_EXTERNAL)), implement HoughLines method for quad
 detection as an alternative.
 ## Installation
 ```
@@ -30,4 +32,4 @@ for text in data:
 ```
 ---------------
 SPDX-License-Identifier: GPLv3-or-later \
-Copyright © 2020 Or Toledano 
+Copyright © 2020 Or Toledano

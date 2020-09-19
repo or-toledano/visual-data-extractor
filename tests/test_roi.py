@@ -6,9 +6,11 @@ test_roi.py: test file for ROI
 import unittest
 from .context import wait_space
 from visualextract.roi.quad_detection import get_quads_approx_poly
-from visualextract.roi.rectification import rectified_roi, rectified_roi_bad
+from visualextract.roi.rectification import rectified_roi, rectified_roi_bad, \
+    centroid
 from visualextract.ocr.extract_text import from_roi
 import cv2 as cv
+import numpy as np
 
 
 def rec_similarity(contour) -> float:
@@ -31,10 +33,23 @@ class TestROI(unittest.TestCase):
         wait_space(image)
         qb = get_quads_approx_poly(image)
         for quad, box in qb:
-            # cv.drawContours(image, [quad], 0, 50, 3)
-            # cv.imshow("Output", image)
+            im = image.copy()
+            cv.drawContours(im, [quad], 0, 50, 3)
+            wait_space(im)
             if (roi := rectified_roi_bad(image, quad, 1)) is not None:
-                print(from_roi(roi))
+                print((txt := from_roi(roi)))
+                w = 1300
+                h = 100
+                c = centroid(quad)
+                cv.rectangle(image, (c[0], c[1] - h), (c[0] + w, c[1] + h),
+                             (255, 255, 255), -1)
+                cv.putText(image, "OCR: "+txt,
+                           c,
+                           cv.FONT_HERSHEY_SIMPLEX,
+                           2,
+                           0,
+                           5)
+                wait_space(image)
 
         # self.assertTrue(int(input("Enter satisfaction from [0,1]")),
         #                 "Not satisfied") # Annoying a bit
