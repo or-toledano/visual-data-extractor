@@ -6,7 +6,7 @@ test_roi.py: test file for ROI
 import unittest
 from .context import wait_space
 from visualextract.roi.quad_detection import get_quads_approx_poly
-from visualextract.roi.rectification import rectified_roi
+from visualextract.roi.rectification import rectified_roi, rectified_roi_bad
 from visualextract.ocr.extract_text import from_roi
 import cv2 as cv
 
@@ -25,22 +25,16 @@ def rec_similarity(contour) -> float:
 
 class TestROI(unittest.TestCase):
     def test_roi(self):
-        image = cv.imread('./test_images/text.png', cv.IMREAD_GRAYSCALE)
+        image = cv.imread('./tests/test_images/facebook.jpg')
+        wait_space(image)
+        image = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
         wait_space(image)
         qb = get_quads_approx_poly(image)
         for quad, box in qb:
-            cv.drawContours(image, [quad], 0, 50, 3)
-            cv.imshow("Output", image)
-            if (roi := rectified_roi(image, quad)) is not None:
-                m = cv.moments(roi)
-                centroid = (
-                    int((m["m10"] / m["m00"])), int((m["m01"] / m["m00"])))
-                cv.putText(roi, f"{rec_similarity(quad):.2f}", centroid,
-                           cv.FONT_HERSHEY_DUPLEX,
-                           1, 0, thickness=1)
-                wait_space(roi, "ROI detected")
-                print(f"{from_roi(roi)=}")
-                wait_space(roi, "ROI detected")
+            # cv.drawContours(image, [quad], 0, 50, 3)
+            # cv.imshow("Output", image)
+            if (roi := rectified_roi_bad(image, quad, 1)) is not None:
+                print(from_roi(roi))
 
         # self.assertTrue(int(input("Enter satisfaction from [0,1]")),
         #                 "Not satisfied") # Annoying a bit

@@ -26,8 +26,9 @@ def resize(image, width, inter=cv.INTER_AREA) -> Tuple[ndarray, float]:
     return cv.resize(image, dim, interpolation=inter), 1 / ratio
 
 
-def get_quads_approx_poly(gray, resize_width=250, area_thresh=999,
-                          rect_thresh=.5) -> List[Tuple[ndarray, ndarray]]:
+def get_quads_approx_poly(gray, resize_width=500, area_thresh=999,
+                          rect_thresh=.6, epsilon=.025) -> \
+        List[Tuple[ndarray, ndarray]]:
     """
     not so robust, approxPolyDP implementation - see get_quads_hough_lines
     :param resize_width: smaller width for intermediate calculations
@@ -36,23 +37,22 @@ def get_quads_approx_poly(gray, resize_width=250, area_thresh=999,
     :param rect_thresh: threshold for bounding-rect-like-area score
     e.i. quads with area/bounding rect area ratio greater than the threshold
     will be considered "good" for further processing
+    :param epsilon: epsilon*perimeter -> approxPolyDP's epsilon
     :return: quads
     """
     resized, ratio = resize(gray, width=resize_width)
     blur = cv.GaussianBlur(resized, (5, 5), 0)
-    ret, thresh = cv.threshold(blur, 0, 255,
-                               cv.THRESH_OTSU + cv.THRESH_BINARY)
-    # kernel = np.ones((5, 5), np.uint8)
-    # thresh = cv.morphologyEx(thresh, cv.MORPH_OPEN, kernel)
-    # wait_space(thresh)
-    contours, hierarchy = cv.findContours(thresh, cv.RETR_EXTERNAL,
-                                          cv.CHAIN_APPROX_SIMPLE)
+    thresh = cv.threshold(blur, 0, 255,
+                          cv.THRESH_OTSU + cv.THRESH_BINARY)[1]
+    contours = cv.findContours(thresh, cv.RETR_EXTERNAL,
+                               cv.CHAIN_APPROX_SIMPLE)[0]
     quads = []
     small_quads = 0
     for contour in contours:
         perimeter = cv.arcLength(contour, closed=True)
-        poly = cv.approxPolyDP(contour, epsilon=.1 * perimeter, closed=True)
-        if len(poly) != 4:
+        poly = cv.approxPolyDP(contour, epsilon=epsilon * perimeter,
+                               closed=True)
+        if len(poly) != 4:  # quads only!
             continue
         poly = poly.astype(np.float32)
         poly *= ratio
@@ -72,6 +72,6 @@ def get_quads_approx_poly(gray, resize_width=250, area_thresh=999,
 def get_quads_hough_lines():
     """
     More robust than approxPolyDP
-    :return:
+    :return: quads
     """
-    pass
+    raise NotImplementedError

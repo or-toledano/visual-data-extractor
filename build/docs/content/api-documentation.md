@@ -78,11 +78,11 @@ SPDX-License-Identifier: GPLv3-or-later
 Copyright © 2020 Or Toledano
 rectification.py: warp perspective of quads to rectangles
 
-<a name="visualextract.roi.rectification.swap_y"></a>
-#### swap\_y
+<a name="visualextract.roi.rectification.sort_y"></a>
+#### sort\_y
 
 ```python
-swap_y(p0, p1) -> list
+sort_y(p0, p1) -> list
 ```
 
 **Arguments**:
@@ -93,6 +93,49 @@ swap_y(p0, p1) -> list
 **Returns**:
 
 [minarg_{p0, p1}(p.y), maxarg_{p0, p1}(p.y)]
+
+<a name="visualextract.roi.rectification.sort_quad"></a>
+#### sort\_quad
+
+```python
+sort_quad(quad: np.ndarray) -> np.ndarray
+```
+
+**Arguments**:
+
+- `quad`: four points
+
+**Returns**:
+
+four points, starting from the top left, counter clockwise
+(positive orientation)
+
+<a name="visualextract.roi.rectification.rect_angle"></a>
+#### rect\_angle
+
+```python
+rect_angle(rotated_rect)
+```
+
+**Arguments**:
+
+- `rotated_rect`: minRectArea output
+:return the angle that is required to rotate the rotated_rect back
+
+<a name="visualextract.roi.rectification.centroid"></a>
+#### centroid
+
+```python
+centroid(contour: np.ndarray)
+```
+
+**Arguments**:
+
+- `contour`: contour
+
+**Returns**:
+
+centroid of the contour
 
 <a name="visualextract.roi.rectification.rectified_roi"></a>
 #### rectified\_roi
@@ -109,6 +152,56 @@ rectified_roi(image: np.ndarray, quad: np.ndarray) -> np.ndarray
 **Returns**:
 
 a cropped ROI for the rectified quad
+
+<a name="visualextract.roi.rectification.rectified_roi_bad"></a>
+#### rectified\_roi\_bad
+
+```python
+rectified_roi_bad(image: np.ndarray, quad: np.ndarray, roll: int = 0) -> np.ndarray
+```
+
+**Arguments**:
+
+- `image`: base image of the contour
+- `quad`: contour to rectify
+- `roll`: TODO: figure out why aligned_box needs roll sometimes
+
+**Returns**:
+
+a cropped ROI for the rectified quad
+
+<a name="visualextract.roi.rectification.rectified_roi_worst"></a>
+#### rectified\_roi\_worst
+
+```python
+rectified_roi_worst(image: np.ndarray, quad: np.ndarray) -> np.ndarray
+```
+
+**Arguments**:
+
+- `image`: base image of the contour
+- `quad`: contour to rectify
+
+**Returns**:
+
+a cropped ROI for the rectified quad
+
+<a name="visualextract.roi.rectification.rectified_roi_good_no_rotate"></a>
+#### rectified\_roi\_good\_no\_rotate
+
+```python
+rectified_roi_good_no_rotate(image: np.ndarray, quad: np.ndarray) -> np.ndarray
+```
+
+**Arguments**:
+
+- `image`: base image of the contour
+- `quad`: contour to rectify
+
+**Returns**:
+
+a cropped ROI for the rectified quad
+IMPORTANT NOTE: the ROI is warped to a plane, but not rotated yet!
 
 <a name="visualextract.roi.quad_detection"></a>
 # visualextract.roi.quad\_detection
@@ -138,6 +231,66 @@ resize(image, width, inter=cv.INTER_AREA) -> Tuple[ndarray, float]
 #### get\_quads\_approx\_poly
 
 ```python
+get_quads_approx_poly(gray, resize_width=500, area_thresh=999, rect_thresh=.6, epsilon=.025) -> List[Tuple[ndarray, ndarray]]
+```
+
+not so robust, approxPolyDP implementation - see get_quads_hough_lines
+
+**Arguments**:
+
+- `resize_width`: smaller width for intermediate calculations
+- `area_thresh`: area threshold for chosen quads
+- `gray`: grayscale image
+- `rect_thresh`: threshold for bounding-rect-like-area score
+e.i. quads with area/bounding rect area ratio greater than the threshold
+will be considered "good" for further processing
+- `epsilon`: epsilon*perimeter -> approxPolyDP's epsilon
+
+**Returns**:
+
+quads
+
+<a name="visualextract.roi.quad_detection.get_quads_hough_lines"></a>
+#### get\_quads\_hough\_lines
+
+```python
+get_quads_hough_lines()
+```
+
+More robust than approxPolyDP
+
+**Returns**:
+
+quads
+
+<a name="visualextract.roi.edges"></a>
+# visualextract.roi.edges
+
+SPDX-License-Identifier: GPLv3-or-later
+Copyright © 2020 Or Toledano
+quad_detection.py: detect quads
+
+<a name="visualextract.roi.edges.resize"></a>
+#### resize
+
+```python
+resize(image, width, inter=cv.INTER_AREA) -> Tuple[ndarray, float]
+```
+
+**Arguments**:
+
+- `image`: image
+- `width`: output width
+- `inter`: interpolation method, INTER_AREA by default
+
+**Returns**:
+
+(resized image, input/output ratio)
+
+<a name="visualextract.roi.edges.get_quads_approx_poly"></a>
+#### get\_quads\_approx\_poly
+
+```python
 get_quads_approx_poly(gray, resize_width=250, area_thresh=999, rect_thresh=.5) -> List[Tuple[ndarray, ndarray]]
 ```
 
@@ -156,7 +309,7 @@ will be considered "good" for further processing
 
 quads
 
-<a name="visualextract.roi.quad_detection.get_quads_hough_lines"></a>
+<a name="visualextract.roi.edges.get_quads_hough_lines"></a>
 #### get\_quads\_hough\_lines
 
 ```python
@@ -183,12 +336,29 @@ extract.py: user frontend for the module
 #### extract\_data
 
 ```python
-extract_data(image_path)
+extract_data(image_path, rotate=False)
 ```
 
 **Arguments**:
 
-- `image_path`: path to image
+- `image_path`: image_path
+- `rotate`: try all rotations+rolls
+
+**Returns**:
+
+data
+
+<a name="visualextract.extract.extract_data_once"></a>
+#### extract\_data\_once
+
+```python
+extract_data_once(image, roll)
+```
+
+**Arguments**:
+
+- `image`: image
+- `roll`: try all rolls
 
 **Returns**:
 
