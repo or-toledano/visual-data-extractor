@@ -1,6 +1,8 @@
 """
 SPDX-License-Identifier: GPLv3-or-later
+
 Copyright © 2020 Or Toledano
+
 rectification.py: warp perspective of quads to rectangles
 """
 from math import ceil

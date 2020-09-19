@@ -1,6 +1,8 @@
 """
 SPDX-License-Identifier: GPLv3-or-later
+
 Copyright © 2020 Or Toledano
+
 extract_text.py: extract text from preprocessed images
 """
 import cv2 as cv

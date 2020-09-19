@@ -34,7 +34,9 @@ ocr module - extract text from images
 # visualextract.ocr.extract\_text
 
 SPDX-License-Identifier: GPLv3-or-later
+
 Copyright © 2020 Or Toledano
+
 extract_text.py: extract text from preprocessed images
 
 <a name="visualextract.ocr.extract_text.from_roi"></a>
@@ -69,7 +71,9 @@ roi module - detect relevant quads and preprocess them before ocr
 # visualextract.roi.rectification
 
 SPDX-License-Identifier: GPLv3-or-later
+
 Copyright © 2020 Or Toledano
+
 rectification.py: warp perspective of quads to rectangles
 
 <a name="visualextract.roi.rectification.sort_y"></a>
@@ -220,7 +224,9 @@ IMPORTANT NOTE: the ROI is warped to a plane, but not rotated yet!
 # visualextract.roi.quad\_detection
 
 SPDX-License-Identifier: GPLv3-or-later
+
 Copyright © 2020 Or Toledano
+
 quad_detection.py: detect quads
 
 <a name="visualextract.roi.quad_detection.resize"></a>
@@ -280,7 +286,9 @@ quads
 # visualextract.roi.edges
 
 SPDX-License-Identifier: GPLv3-or-later
+
 Copyright © 2020 Or Toledano
+
 quad_detection.py: detect quads
 
 <a name="visualextract.roi.edges.resize"></a>
@@ -339,7 +347,9 @@ More robust than approxPolyDP
 # visualextract.extract
 
 SPDX-License-Identifier: GPLv3-or-later
+
 Copyright © 2020 Or Toledano
+
 extract.py: user frontend for the module
 
 <a name="visualextract.extract.extract_data"></a>
