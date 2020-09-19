@@ -38,7 +38,7 @@ def get_quads_approx_poly(gray, resize_width=500, area_thresh=999,
     e.i. quads with area/bounding rect area ratio greater than the threshold
     will be considered "good" for further processing
     :param epsilon: epsilon*perimeter -> approxPolyDP's epsilon
-    :return: quads
+    :return: List[(quad, minRectArea around the quad)]
     """
     resized, ratio = resize(gray, width=resize_width)
     blur = cv.GaussianBlur(resized, (5, 5), 0)
@@ -63,13 +63,12 @@ def get_quads_approx_poly(gray, resize_width=500, area_thresh=999,
         if area < area_thresh or area / rect_area < rect_thresh:
             small_quads += 1
             continue
-        box = cv.boxPoints(rect)
-        quads.append((poly, box))
+        quads.append((poly, rect))
     print(f"{small_quads=}", file=sys.stderr)
     return quads
 
 
-def get_quads_hough_lines():
+def get_quads_hough_lines() -> List[Tuple[ndarray, ndarray]]:
     """
     More robust than approxPolyDP
     :return: quads

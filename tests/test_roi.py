@@ -32,8 +32,8 @@ class TestROI(unittest.TestCase):
         wait_space(image)
         image = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
         wait_space(image)
-        qb = get_quads_approx_poly(image)
-        for quad, box in qb:
+        qr = get_quads_approx_poly(image)
+        for quad, rect in qr:
             im = image.copy()
             cv.drawContours(im, [quad], 0, 50, 3)
             wait_space(im)

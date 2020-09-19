@@ -98,7 +98,7 @@ sort_y(p0, p1) -> list
 #### sort\_quad
 
 ```python
-sort_quad(quad: np.ndarray) -> np.ndarray
+sort_quad(quad: ndarray) -> ndarray
 ```
 
 **Arguments**:
@@ -109,6 +109,21 @@ sort_quad(quad: np.ndarray) -> np.ndarray
 
 four points, starting from the top left, counter clockwise
 (positive orientation)
+
+<a name="visualextract.roi.rectification.tup"></a>
+#### tup
+
+```python
+tup(arr: ndarray) -> tuple
+```
+
+**Arguments**:
+
+- `arr`: 1d array
+
+**Returns**:
+
+tuple version of the ndarray
 
 <a name="visualextract.roi.rectification.rect_angle"></a>
 #### rect\_angle
@@ -126,7 +141,7 @@ rect_angle(rotated_rect)
 #### centroid
 
 ```python
-centroid(contour: np.ndarray)
+centroid(contour: ndarray) -> Tuple[int, int]
 ```
 
 **Arguments**:
@@ -141,7 +156,7 @@ centroid of the contour
 #### rectified\_roi
 
 ```python
-rectified_roi(image: np.ndarray, quad: np.ndarray) -> np.ndarray
+rectified_roi(image: ndarray, quad: ndarray) -> ndarray
 ```
 
 **Arguments**:
@@ -154,10 +169,10 @@ rectified_roi(image: np.ndarray, quad: np.ndarray) -> np.ndarray
 a cropped ROI for the rectified quad
 
 <a name="visualextract.roi.rectification.rectified_roi_manual_roll"></a>
-#### rectified\_roi\_bad
+#### rectified\_roi\_manual\_roll
 
 ```python
-rectified_roi_manual_roll(image: np.ndarray, quad: np.ndarray, roll: int = 0) -> np.ndarray
+rectified_roi_manual_roll(image: ndarray, quad: ndarray, rect: ndarray, roll: int = 0) -> ndarray
 ```
 
 **Arguments**:
@@ -165,22 +180,25 @@ rectified_roi_manual_roll(image: np.ndarray, quad: np.ndarray, roll: int = 0) ->
 - `image`: base image of the contour
 - `quad`: contour to rectify
 - `roll`: TODO: figure out why aligned_box needs roll sometimes
+roll is in range(4), like a 90 degree fix for the box
+- `rect`: pre computed minAreaRect
 
 **Returns**:
 
-a cropped ROI for the rectified quad
+a cropped ROI for the rectified quad, but u
 
 <a name="visualextract.roi.rectification.rectified_roi_worst"></a>
 #### rectified\_roi\_worst
 
 ```python
-rectified_roi_worst(image: np.ndarray, quad: np.ndarray) -> np.ndarray
+rectified_roi_worst(image: ndarray, quad: ndarray, rect: ndarray) -> ndarray
 ```
 
 **Arguments**:
 
 - `image`: base image of the contour
 - `quad`: contour to rectify
+- `rect`: pre computed minAreaRect
 
 **Returns**:
 
@@ -190,13 +208,14 @@ a cropped ROI for the rectified quad
 #### rectified\_roi\_good\_no\_rotate
 
 ```python
-rectified_roi_good_no_rotate(image: np.ndarray, quad: np.ndarray) -> np.ndarray
+rectified_roi_good_no_rotate(image: ndarray, quad: ndarray, rect: ndarray) -> ndarray
 ```
 
 **Arguments**:
 
 - `image`: base image of the contour
 - `quad`: contour to rectify
+- `rect`: pre computed minAreaRect
 
 **Returns**:
 
@@ -248,13 +267,13 @@ will be considered "good" for further processing
 
 **Returns**:
 
-quads
+List[(quad, minRectArea around the quad)]
 
 <a name="visualextract.roi.quad_detection.get_quads_hough_lines"></a>
 #### get\_quads\_hough\_lines
 
 ```python
-get_quads_hough_lines()
+get_quads_hough_lines() -> List[Tuple[ndarray, ndarray]]
 ```
 
 More robust than approxPolyDP
@@ -322,9 +341,6 @@ More robust than approxPolyDP
 
 
 
-<a name="visualextract.context"></a>
-# visualextract.context
-
 <a name="visualextract.extract"></a>
 # visualextract.extract
 
@@ -336,7 +352,7 @@ extract.py: user frontend for the module
 #### extract\_data
 
 ```python
-extract_data(image_path, rotate=False)
+extract_data(image_path, rotate=False) -> List[str]
 ```
 
 **Arguments**:
@@ -346,21 +362,21 @@ extract_data(image_path, rotate=False)
 
 **Returns**:
 
-data
+all texts extracted (including garbage)
 
 <a name="visualextract.extract.extract_data_once"></a>
 #### extract\_data\_once
 
 ```python
-extract_data_once(image, roll)
+extract_data_once(image, roll) -> List[str]
 ```
 
 **Arguments**:
 
 - `image`: image
-- `roll`: try all rolls
+- `roll`: roll so we can try all rolls
 
 **Returns**:
 
-data
+all texts extracted (including garbage)
 

@@ -4,9 +4,11 @@ Copyright © 2020 Or Toledano
 rectification.py: warp perspective of quads to rectangles
 """
 from math import ceil
+from typing import Tuple
 
 import cv2 as cv
 import numpy as np
+from numpy import ndarray
 
 
 def sort_y(p0, p1) -> list:
@@ -18,7 +20,7 @@ def sort_y(p0, p1) -> list:
     return [p0, p1][::(-1) ** (p0[0] > p1[0])]
 
 
-def sort_quad(quad: np.ndarray) -> np.ndarray:
+def sort_quad(quad: ndarray) -> ndarray:
     """
     :param quad: four points
     :return: four points, starting from the top left, counter clockwise
@@ -30,7 +32,11 @@ def sort_quad(quad: np.ndarray) -> np.ndarray:
     return np.array([tl, tr, br, bl], dtype=np.float32)
 
 
-def tup(arr: np.ndarray) -> tuple:
+def tup(arr: ndarray) -> tuple:
+    """
+    :param arr: 1d array
+    :return: tuple version of the ndarray
+    """
     return tuple(d for d in arr)
 
 
@@ -45,7 +51,7 @@ def rect_angle(rotated_rect):
     return theta
 
 
-def centroid(contour: np.ndarray):
+def centroid(contour: ndarray) -> Tuple[int, int]:
     """
     :param contour: contour
     :return: centroid of the contour
@@ -54,7 +60,7 @@ def centroid(contour: np.ndarray):
     return int((m["m10"] / m["m00"])), int((m["m01"] / m["m00"]))
 
 
-def rectified_roi(image: np.ndarray, quad: np.ndarray) -> np.ndarray:
+def rectified_roi(image: ndarray, quad: ndarray) -> ndarray:
     """
     :param image: base image of the contour
     :param quad: contour to rectify
@@ -68,15 +74,16 @@ def rectified_roi(image: np.ndarray, quad: np.ndarray) -> np.ndarray:
     return cv.warpPerspective(image, m, (w, h))
 
 
-def rectified_roi_manual_roll(image: np.ndarray, quad: np.ndarray,
-                              roll: int = 0) -> np.ndarray:
+def rectified_roi_manual_roll(image: ndarray, quad: ndarray,
+                              rect: ndarray, roll: int = 0) -> ndarray:
     """
     :param image: base image of the contour
     :param quad: contour to rectify
     :param roll: TODO: figure out why aligned_box needs roll sometimes
+    roll is in range(4), like a 90 degree fix for the box
+    :param rect: pre computed minAreaRect
     :return: a cropped ROI for the rectified quad, but u
     """
-    rect = cv.minAreaRect(quad)
     rect_box = cv.boxPoints(rect)
     quad, rect_box = sort_quad(quad), sort_quad(rect_box)
     rect_box -= rect_box.min(axis=0, initial=None)  # translation to 0
@@ -92,42 +99,41 @@ def rectified_roi_manual_roll(image: np.ndarray, quad: np.ndarray,
     return pers
 
 
-def rectified_roi_worst(image: np.ndarray, quad: np.ndarray) -> np.ndarray:
+def rectified_roi_worst(image: ndarray, quad: ndarray,
+                        rect: ndarray) -> ndarray:
     """
     :param image: base image of the contour
     :param quad: contour to rectify
+    :param rect: pre computed minAreaRect
     :return: a cropped ROI for the rectified quad
     """
-    rect = cv.minAreaRect(quad)
     box = cv.boxPoints(rect)
     quad, box = sort_quad(quad), sort_quad(box)
     obox = box.copy()
     box -= box.min(axis=0, initial=None)  # translation to 0
     m0 = cv.getPerspectiveTransform(quad.astype(np.float32), box)
     pers = cv.warpPerspective(image, m0, tup(box.max(axis=0, initial=None)))
-    # wait_space(pers)
     nobox = obox.reshape(1, *obox.shape)
     nbox = np.squeeze(cv.perspectiveTransform(nobox, m0))
     cv.drawContours(pers, [obox.astype(np.intp)], 0, 255, 2)
-    # wait_space(pers)
     center = centroid(nbox)
     rot = cv.getRotationMatrix2D(center, angle=rect_angle(rect), scale=1)
     w, h = (ceil(1 * size_cord) for size_cord in rect[1])
     return cv.warpAffine(src=pers, M=rot, dsize=(w, h))
 
 
-def rectified_roi_good_no_rotate(image: np.ndarray, quad: np.ndarray,
-                                 ) -> np.ndarray:
+def rectified_roi_good_no_rotate(image: ndarray, quad: ndarray,
+                                 rect: ndarray) -> ndarray:
     """
     :param image: base image of the contour
     :param quad: contour to rectify
+    :param rect: pre computed minAreaRect
     :return: a cropped ROI for the rectified quad
     IMPORTANT NOTE: the ROI is warped to a plane, but not rotated yet!
     """
     mask = np.zeros_like(image)
     cv.drawContours(mask, [quad], 0, 255, -1)
     image = cv.bitwise_and(image, mask)
-    rect = cv.minAreaRect(quad)
     box = cv.boxPoints(rect)
     quad, box = sort_quad(quad), sort_quad(box)
     box -= box.min(axis=0, initial=None)  # translation to 0
