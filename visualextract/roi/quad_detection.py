@@ -4,12 +4,12 @@ Copyright © 2020 Or Toledano
 quad_detection.py: detect quads
 """
 
+import sys
+from typing import List, Tuple
+
 import cv2 as cv
 import numpy as np
 from numpy import ndarray
-from typing import List, Tuple
-from ..context import wait_space
-import sys
 
 
 def resize(image, width, inter=cv.INTER_AREA) -> Tuple[ndarray, float]:

@@ -4,10 +4,12 @@ Copyright © 2020 Or Toledano
 extract.py: user frontend for the module
 """
 
-from visualextract.roi.quad_detection import get_quads_approx_poly
-from visualextract.roi.rectification import rectified_roi_bad, rectified_roi
-from visualextract.ocr.extract_text import from_roi
 import cv2 as cv
+
+from visualextract.ocr.extract_text import from_roi
+from visualextract.roi.quad_detection import get_quads_approx_poly
+from visualextract.roi.rectification import rectified_roi_manual_roll, \
+    rectified_roi
 
 
 def extract_data(image_path, rotate=False):
@@ -37,7 +39,8 @@ def extract_data_once(image, roll):
     if roll:
         for quad, box in qb:
             for roll in range(4):
-                if (roi := rectified_roi_bad(image, quad, roll)) is not None:
+                if (roi := rectified_roi_manual_roll(image, quad,
+                                                     roll)) is not None:
                     texts.append(from_roi(roi))
     else:
         for quad, box in qb:

@@ -5,7 +5,6 @@ extract_text.py: extract text from preprocessed images
 """
 import cv2 as cv
 import pytesseract
-from ..context import wait_space
 
 
 def from_roi(roi):

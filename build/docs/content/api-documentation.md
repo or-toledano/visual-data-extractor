@@ -153,11 +153,11 @@ rectified_roi(image: np.ndarray, quad: np.ndarray) -> np.ndarray
 
 a cropped ROI for the rectified quad
 
-<a name="visualextract.roi.rectification.rectified_roi_bad"></a>
+<a name="visualextract.roi.rectification.rectified_roi_manual_roll"></a>
 #### rectified\_roi\_bad
 
 ```python
-rectified_roi_bad(image: np.ndarray, quad: np.ndarray, roll: int = 0) -> np.ndarray
+rectified_roi_manual_roll(image: np.ndarray, quad: np.ndarray, roll: int = 0) -> np.ndarray
 ```
 
 **Arguments**:

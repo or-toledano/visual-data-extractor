@@ -3,10 +3,10 @@ SPDX-License-Identifier: GPLv3-or-later
 Copyright © 2020 Or Toledano
 rectification.py: warp perspective of quads to rectangles
 """
+from math import ceil
+
 import cv2 as cv
 import numpy as np
-from ..context import wait_space
-from math import ceil
 
 
 def sort_y(p0, p1) -> list:
@@ -68,13 +68,13 @@ def rectified_roi(image: np.ndarray, quad: np.ndarray) -> np.ndarray:
     return cv.warpPerspective(image, m, (w, h))
 
 
-def rectified_roi_bad(image: np.ndarray, quad: np.ndarray,
-                      roll: int = 0) -> np.ndarray:
+def rectified_roi_manual_roll(image: np.ndarray, quad: np.ndarray,
+                              roll: int = 0) -> np.ndarray:
     """
     :param image: base image of the contour
     :param quad: contour to rectify
     :param roll: TODO: figure out why aligned_box needs roll sometimes
-    :return: a cropped ROI for the rectified quad
+    :return: a cropped ROI for the rectified quad, but u
     """
     rect = cv.minAreaRect(quad)
     rect_box = cv.boxPoints(rect)
@@ -89,7 +89,6 @@ def rectified_roi_bad(image: np.ndarray, quad: np.ndarray,
     m1 = cv.getPerspectiveTransform(rect_box, aligned_box)
 
     pers = cv.warpPerspective(image, m1 @ m0, (w, h))
-
     return pers
 
 
