@@ -7,7 +7,7 @@ My attempt on ROI for rectangular text boxes, "deterministically" (no ML).\
 This was made primarily for learning OpenCV purposes;
 Use some DL model like OpenCV's EAST for a fast and robust method in real life.
 ## The pipeline
-Detect quads (blur, threshold), warp the perspective, \
+Detect quads (blur, threshold, approxPolyDP), warp the perspective, \
 OCR preprocess (threshold), run OCR, output.
 ## TODO:
 serialize output, save the contour tree structure in a JSON
@@ -26,7 +26,7 @@ so use the --rotate flag to get the results for all of the rotations.
 I didn't get much luck with
 ``` pytesseract.image_to_osd ```
 and still need to figure out minAreaRect rotation fix; With the current --rotate
-flag the code is trying all 4 rolls for each roi using 
+flag the code is trying all 4 rolls for each roi using
 ```rectified_roi_manual_roll```, which isn't really optimal...\
 TL;DR:
 ```
