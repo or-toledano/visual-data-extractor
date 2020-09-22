@@ -12,7 +12,7 @@ Use some DL model like OpenCV's EAST for a fast and robust method in real life.
 
 
 ## The pipeline
-Detect quads (blur, threshold, approxPolyDP), warp the perspective, \
+Detect quads (blur, threshold, find contours, approxPolyDP), warp the perspective, \
 OCR preprocess (threshold), run OCR, output.
 ## TODO:
 serialize output, save the contour tree structure in a JSON
