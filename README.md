@@ -14,6 +14,9 @@ serialize output, save the contour tree structure in a JSON
 (switch to RETR_TREE from RETR_EXTERNAL), implement HoughLines method for quad
 detection as an alternative.
 ## Installation
+Note: ```python```, ```pip``` point to the latest versions (e.i.
+```python3```, ```pip3```) on Arch Linux, but not on Debian. \
+
 ```
 git clone https://github.com/or-toledano/visual-data-extractor.git
 pip install visual-data-extractor/
