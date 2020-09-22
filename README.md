@@ -1,7 +1,7 @@
 # visual-data-extractor - Computer Vision for Data Extraction
 ## [Read the docs here](build/docs/content/api-documentation.md)
 ## Phone screens/documents (rectangles) data extraction
-My attempt on ROI for rectangular text boxes, "deterministically" (no ML).\
+My attempt on ROI for rectangular text boxes, "deterministically" (no DL).
 
 This was made primarily for learning OpenCV purposes;
 
