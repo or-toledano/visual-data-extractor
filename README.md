@@ -15,13 +15,13 @@ serialize output, save the contour tree structure in a JSON
 detection as an alternative.
 ## Installation
 Note: ```python```, ```pip``` point to the latest versions (e.i.
-```python3```, ```pip3```) on Arch Linux, but not on Debian. \
+```python3```, ```pip3```) on Arch Linux, but not on Debian.
 
 ```
 git clone https://github.com/or-toledano/visual-data-extractor.git
 pip install visual-data-extractor/
 ```
-System dependencies: tesseract, tesseract-ocr-eng
+System dependencies: ```tesseract```, ```tesseract-ocr-eng```.
 ## Usage
 The rotate flag is for rotation of the image and each individual roi.
 The roi orientation can be estimated but might not always be correct,
