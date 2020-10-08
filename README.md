@@ -1,13 +1,18 @@
 # visual-data-extractor - Computer Vision for Data Extraction
 ## [Read the docs here](build/docs/content/api-documentation.md)
 ## Phone screens/documents (rectangles) data extraction
+My attempt on ROI for rectangular text boxes, "deterministically" (no DL).
+
+This was made primarily for learning OpenCV purposes;
+
+Use some DL model like OpenCV's EAST for a fast and robust method in real life.
+
+
 ![demo](resources/demo.gif)
 
-My attempt on ROI for rectangular text boxes, "deterministically" (no ML).\
-This was made primarily for learning OpenCV purposes;
-Use some DL model like OpenCV's EAST for a fast and robust method in real life.
+
 ## The pipeline
-Detect quads (blur, threshold, approxPolyDP), warp the perspective, \
+Detect quads (blur, threshold, find contours, approxPolyDP), warp the perspective, \
 OCR preprocess (threshold), run OCR, output.
 ## TODO:
 serialize output, save the contour tree structure in a JSON
