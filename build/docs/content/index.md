@@ -7,18 +7,21 @@ My attempt on ROI for rectangular text boxes, "deterministically" (no ML).\
 This was made primarily for learning OpenCV purposes;
 Use some DL model like OpenCV's EAST for a fast and robust method in real life.
 ## The pipeline
-Detect quads (blur, threshold), warp the perspective, \
+Detect quads (blur, threshold, approxPolyDP), warp the perspective, \
 OCR preprocess (threshold), run OCR, output.
 ## TODO:
 serialize output, save the contour tree structure in a JSON
 (switch to RETR_TREE from RETR_EXTERNAL), implement HoughLines method for quad
 detection as an alternative.
 ## Installation
+Note: ```python```, ```pip``` point to the latest versions (e.i.
+```python3```, ```pip3```) on Arch Linux, but not on Debian.
+
 ```
 git clone https://github.com/or-toledano/visual-data-extractor.git
 pip install visual-data-extractor/
 ```
-System dependencies: tesseract, tesseract-ocr-eng
+System dependencies: ```tesseract```, ```tesseract-ocr-eng```.
 ## Usage
 The rotate flag is for rotation of the image and each individual roi.
 The roi orientation can be estimated but might not always be correct,
@@ -26,7 +29,7 @@ so use the --rotate flag to get the results for all of the rotations.
 I didn't get much luck with
 ``` pytesseract.image_to_osd ```
 and still need to figure out minAreaRect rotation fix; With the current --rotate
-flag the code is trying all 4 rolls for each roi using 
+flag the code is trying all 4 rolls for each roi using
 ```rectified_roi_manual_roll```, which isn't really optimal...\
 TL;DR:
 ```

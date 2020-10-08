@@ -229,35 +229,17 @@ Copyright © 2020 Or Toledano
 
 quad_detection.py: detect quads
 
-<a name="visualextract.roi.quad_detection.resize"></a>
-#### resize
-
-```python
-resize(image, width, inter=cv.INTER_AREA) -> Tuple[ndarray, float]
-```
-
-**Arguments**:
-
-- `image`: image
-- `width`: output width
-- `inter`: interpolation method, INTER_AREA by default
-
-**Returns**:
-
-(resized image, input/output ratio)
-
 <a name="visualextract.roi.quad_detection.get_quads_approx_poly"></a>
 #### get\_quads\_approx\_poly
 
 ```python
-get_quads_approx_poly(gray, resize_width=500, area_thresh=999, rect_thresh=.6, epsilon=.025) -> List[Tuple[ndarray, ndarray]]
+get_quads_approx_poly(gray, area_thresh=999, rect_thresh=.6, epsilon=.025) -> List[Tuple[ndarray, ndarray]]
 ```
 
 not so robust, approxPolyDP implementation - see get_quads_hough_lines
 
 **Arguments**:
 
-- `resize_width`: smaller width for intermediate calculations
 - `area_thresh`: area threshold for chosen quads
 - `gray`: grayscale image
 - `rect_thresh`: threshold for bounding-rect-like-area score

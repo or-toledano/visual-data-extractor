@@ -30,6 +30,7 @@ def rec_similarity(contour) -> float:
 
 class TestROI(unittest.TestCase):
     def test_roi(self):
+        print("Use space to skip the imshow")
         image = cv.imread('./tests/test_images/facebook.jpg')
         wait_space(image)
         image = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
@@ -39,7 +40,9 @@ class TestROI(unittest.TestCase):
             im = image.copy()
             cv.drawContours(im, [quad], 0, 50, 3)
             wait_space(im)
-            if (roi := rectified_roi_manual_roll(image, quad, 1)) is not None:
+            if (roi := rectified_roi_manual_roll(image, quad, rect, 1)) \
+                    is not None:
+                wait_space(roi)
                 print((txt := from_roi(roi)))
                 w = 1300
                 h = 100
