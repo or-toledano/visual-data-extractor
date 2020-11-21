@@ -23,7 +23,7 @@ show image until space press
 <a name="visualextract"></a>
 # visualextract
 
-cvrecon module - Computer Vision for Reconnaissance applications
+visual-data-extractor module
 
 <a name="visualextract.ocr"></a>
 # visualextract.ocr

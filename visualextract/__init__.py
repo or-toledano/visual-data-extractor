@@ -1,3 +1,3 @@
 """
-cvrecon module - Computer Vision for Reconnaissance applications
+visualextract module - Computer Vision
 """
