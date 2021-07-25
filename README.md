@@ -1,7 +1,7 @@
 # visual-data-extractor - Computer Vision for Data Extraction
 ## [Read the docs here](build/docs/content/api-documentation.md)
 ## Phone screens/documents (rectangles) data extraction
-My attempt on ROI for rectangular text boxes, "deterministically" (no DL).
+My attempt on ROI for rectangular text boxes (no DL).
 
 This was made primarily for learning OpenCV purposes;
 
@@ -19,7 +19,7 @@ serialize output, save the contour tree structure in a JSON
 (switch to RETR_TREE from RETR_EXTERNAL), implement HoughLines method for quad
 detection as an alternative.
 ## Installation
-Note: ```python```, ```pip``` point to the latest versions (e.i.
+Note: ```python```, ```pip``` point to the latest versions (i.e.
 ```python3```, ```pip3```) on Arch Linux, but not on Debian.
 
 ```
